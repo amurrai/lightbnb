@@ -44,7 +44,13 @@ const getUserWithEmail = function (email) {
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithId = function (id) {
-  return Promise.resolve(users[id]);
+  // return Promise.resolve(users[id]);
+  return pool
+    .query('SELECT * FROM users WHERE id = $1;', [id])
+    .then((response) => {
+    const user = response.rows[0];
+    return user;
+    });
 };
 
 /**
@@ -53,10 +59,23 @@ const getUserWithId = function (id) {
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser = function (user) {
-  const userId = Object.keys(users).length + 1;
-  user.id = userId;
-  users[userId] = user;
-  return Promise.resolve(user);
+  // const userId = Object.keys(users).length + 1;
+  // user.id = userId;
+  // users[userId] = user;
+  // return Promise.resolve(user);
+  return pool
+    .query(`
+    INSERT INTO users 
+    (name, email, password)
+    VALUES 
+    ($1, $2, $3)
+    RETURNING *;
+    `,
+    [user.name, user.email, user.password])
+    .then((response) => {
+    const user = response.rows[0];
+    return user;
+    });
 };
 
 /// Reservations
