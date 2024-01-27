@@ -1,5 +1,7 @@
 # LightBnB
 
+A simple multi-page Airbnb clone that uses a server-side Javascript to display the information from queries to web pages via SQL queries.
+
 ## Project Structure
 
 ```
@@ -53,3 +55,9 @@
 * `routes` contains the router files which are responsible for any HTTP requests to `/users/something` or `/api/something`. 
 * `styles` contains all of the sass files. 
 * `server.js` is the entry point to the application. This connects the routes to the database.
+
+## Getting Started
+
+1. Install dependencies using the `npm install` command.
+2. Start the web server using the `npm run local` command. The app will be served at <http://localhost:3000/>.
+3. Go to <http://localhost:3000/> in your browser.
